@@ -19,7 +19,10 @@ import createCommentController from '../controllers/createCommentController';
 import { CreateCommentSchema } from '../validationSchemas/createCommentSchema';
 import getPostComments from '../controllers/getPostComments';
 import deleteCommentController from '../controllers/deleteCommentController';
+import getForYouFeedController from '../controllers/getForYouFeedController';
 const router = express.Router();
+
+router.get('/users/for-you-feed', isLoggedIn, getForYouFeedController);
 
 router.get('/users/:userId', getUserInfoController);
 router.put('/users/:userId', isLoggedIn, validateRequestInput(UpdateUserProfileSchema), updateUserProfileController);
