@@ -20,9 +20,11 @@ import { CreateCommentSchema } from '../validationSchemas/createCommentSchema';
 import getPostComments from '../controllers/getPostComments';
 import deleteCommentController from '../controllers/deleteCommentController';
 import getForYouFeedController from '../controllers/getForYouFeedController';
+import getDiscoverFeedController from '../controllers/getDiscoverFeedController';
 const router = express.Router();
 
 router.get('/users/for-you-feed', isLoggedIn, getForYouFeedController);
+router.get('/users/discover-feed', getDiscoverFeedController);
 
 router.get('/users/:userId', getUserInfoController);
 router.put('/users/:userId', isLoggedIn, validateRequestInput(UpdateUserProfileSchema), updateUserProfileController);
