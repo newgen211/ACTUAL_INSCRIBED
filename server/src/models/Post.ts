@@ -18,16 +18,6 @@ const postSchema = new Schema<IPost>({
         type: String 
     },
 
-    likes: [{ 
-        type: Schema.Types.ObjectId, 
-        ref: 'User' 
-    }],
-
-    comments: [{ 
-        type: Schema.Types.ObjectId, 
-        ref: 'Comment' 
-    }],
-
     created_at: {
         type: Date,
         default: Date.now

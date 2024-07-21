@@ -25,12 +25,6 @@ const getFollowersController = async (req: Request, res: Response) => {
         // Find all the followers of the user
         const followers = await Follow.find({ following: userId }).populate('follower', 'username');
 
-        // Map the followers to return only id and username
-        const followerData = followers.map(follow => ({
-            id: follow.follower._id,
-            username: follow.follower.username,
-        }));
-
         // Return a success message and the followers
         const response: IAPIResponse = { message: 'Followers retrieved successfully', code: 200, data: followers };
         res.status(response.code).json(response);
