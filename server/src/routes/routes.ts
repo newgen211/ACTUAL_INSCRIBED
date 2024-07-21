@@ -9,6 +9,7 @@ import unfollowUserController from '../controllers/unfollowUserController';
 import getFollowersController from '../controllers/getFollowersController';
 import getFollowingController from '../controllers/auth/getFollowingController';
 import { CreatePostSchema } from '../validationSchemas/createPostSchema';
+import createPostController from '../controllers/createPostController';
 const router = express.Router();
 
 router.get('/users/:userId', getUserInfoController);
