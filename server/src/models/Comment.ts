@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { IComment } from '../types/IComment';
 
-const commentSchema = new Schema<IComment>({
+export const commentSchema = new Schema<IComment>({
 
     user: { 
         type: Schema.Types.ObjectId, 
@@ -21,11 +21,6 @@ const commentSchema = new Schema<IComment>({
     },
 
     created_at: {
-        type: Date,
-        default: Date.now
-    },
-
-    updated_at: {
         type: Date,
         default: Date.now
     }
