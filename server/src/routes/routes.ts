@@ -14,6 +14,7 @@ import getUserPostsController from '../controllers/getUserPostsController';
 import getPostController from '../controllers/getPostController';
 import deletePostController from '../controllers/deletePostController';
 import likePostController from '../controllers/likePostController';
+import unlikePostController from '../controllers/unlikePostController';
 const router = express.Router();
 
 router.get('/users/:userId', getUserInfoController);
@@ -27,5 +28,7 @@ router.get('/users/:userId/posts', getUserPostsController);
 router.get('/posts/:postId', getPostController);
 router.delete('/posts/:postId', isLoggedIn, deletePostController);
 router.post('/posts/:postId/like', isLoggedIn, likePostController);
+router.post('/posts/:postId/unlike', isLoggedIn, unlikePostController);
+router.post('/posts/:postId/comment', isLoggedIn, createCommentController);
 
 export default router;
