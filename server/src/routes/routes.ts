@@ -17,6 +17,7 @@ import likePostController from '../controllers/likePostController';
 import unlikePostController from '../controllers/unlikePostController';
 import createCommentController from '../controllers/createCommentController';
 import { CreateCommentSchema } from '../validationSchemas/createCommentSchema';
+import getPostComments from '../controllers/getPostComments';
 const router = express.Router();
 
 router.get('/users/:userId', getUserInfoController);
