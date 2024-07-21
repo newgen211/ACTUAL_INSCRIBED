@@ -18,6 +18,7 @@ import unlikePostController from '../controllers/unlikePostController';
 import createCommentController from '../controllers/createCommentController';
 import { CreateCommentSchema } from '../validationSchemas/createCommentSchema';
 import getPostComments from '../controllers/getPostComments';
+import deleteCommentController from '../controllers/deleteCommentController';
 const router = express.Router();
 
 router.get('/users/:userId', getUserInfoController);
@@ -34,5 +35,6 @@ router.post('/posts/:postId/like', isLoggedIn, likePostController);
 router.post('/posts/:postId/unlike', isLoggedIn, unlikePostController);
 router.post('/posts/:postId/comment', isLoggedIn, validateRequestInput(CreateCommentSchema), createCommentController);
 router.get('/posts/:postId/comments', getPostComments);
+router.delete('/posts/:postId/comment/:commentId', isLoggedIn, deleteCommentController);
 
 export default router;
