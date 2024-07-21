@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { z, ZodEffects, ZodError, ZodObject } from 'zod';
-import { StatusCodes } from 'http-status-codes';
 import { IAPIResponse } from '../types/IApiResponse';
 
 
@@ -25,7 +24,7 @@ export function validateRequestInput(schema: z.ZodObject<any, any> | ZodEffects<
 
                 const response: IAPIResponse = {
                     message: 'Input Validation Errors',
-                    code:    StatusCodes.BAD_REQUEST,
+                    code:    400,
                     errors: error.errors.map(err => ({ field: err.path.join('.'), message: err.message, code: err.code }))
                 };
 
@@ -37,7 +36,7 @@ export function validateRequestInput(schema: z.ZodObject<any, any> | ZodEffects<
             // Handle any other error
             const response: IAPIResponse = {
                 message: 'Internal Server Error',
-                code:    StatusCodes.INTERNAL_SERVER_ERROR
+                code:   500
             };
 
             res.status(response.code).json(response);

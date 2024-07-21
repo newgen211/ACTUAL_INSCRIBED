@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { IAPIResponse } from '../types/IApiResponse';
 import jwt from 'jsonwebtoken';
-import { IDecodedToken } from '../types/IDecodedToken';
 
 const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
 

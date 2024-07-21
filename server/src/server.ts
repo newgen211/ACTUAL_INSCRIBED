@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connectDb from './utils/connectDb';
 import authRouter from './routes/authRoutes';
 import createTransporter from './utils/transporter';
+import router from './routes/routes';
 
 // Load the .env variables
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRouter);
+app.use('/api', router);
 
 // Serve Static React Files
 
