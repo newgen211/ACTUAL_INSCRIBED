@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { IAPIResponse } from '../../types/IApiResponse';
 import jwt from 'jsonwebtoken';
-import { VERIFY_SECRET_KEY } from '../../utils/config';
 import { User } from '../../models/User';
 
 const verifyAccountController = async (req: Request, res: Response) => {
@@ -20,7 +19,7 @@ const verifyAccountController = async (req: Request, res: Response) => {
         }
 
         // Verify the token
-        const decoded = jwt.verify(token, VERIFY_SECRET_KEY) as { userId: string };
+        const decoded = jwt.verify(token, process.env.VERIFY_SECRET_KEY as string) as { userId: string };
 
         // Find the user accociated with the token
         const user = await User.findById(decoded.userId);

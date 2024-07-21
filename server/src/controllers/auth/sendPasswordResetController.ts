@@ -2,7 +2,6 @@ import { Request, Response } from 'express-serve-static-core';
 import { User } from '../../models/User';
 import { IAPIResponse } from '../../types/IApiResponse';
 import { createResetToken, createVerificationToken } from '../../utils/createTokens';
-import { DOMAIN, NODEMAILER_USER } from '../../utils/config';
 import { transporter } from '../../server';
 
 const sendVerifyController = async (req: Request, res: Response) => {
@@ -29,12 +28,12 @@ const sendVerifyController = async (req: Request, res: Response) => {
 
         // Create the message
         const mailOptions = {
-            from: NODEMAILER_USER,
+            from: process.env.NODEMAILER_USER,
             to: email,
             subject: 'Reset Your Password',
             html:
             `
-                <p>Click the link to reset your password: <a href="${DOMAIN}/reset-password?token=${token}">Reset Password</a></p>
+                <p>Click the link to reset your password: <a href="${process.env.DOMAIN}/reset-password?token=${token}">Reset Password</a></p>
             `
         };
 

@@ -2,7 +2,6 @@ import * as argon2 from 'argon2';
 import { Request, Response } from 'express';
 import { IAPIResponse } from '../../types/IApiResponse';
 import jwt from 'jsonwebtoken';
-import { RESET_SECRET_KEY } from '../../utils/config';
 import { User } from '../../models/User';
 
 const resetPasswordController = async (req: Request, res: Response) => {
@@ -25,7 +24,7 @@ const resetPasswordController = async (req: Request, res: Response) => {
         }
 
         // Verify the token
-        const decoded = jwt.verify(token, RESET_SECRET_KEY) as {userId: string};
+        const decoded = jwt.verify(token, process.env.RESET_SECRET_KEY as string) as {userId: string};
 
         // Find the user by the id in the token
         const user = await User.findById(decoded.userId);

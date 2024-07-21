@@ -3,7 +3,6 @@ import nodemailer from 'nodemailer';
 import { User } from '../../models/User';
 import { IAPIResponse } from '../../types/IApiResponse';
 import { createVerificationToken } from '../../utils/createTokens';
-import { DOMAIN, NODEMAILER_USER } from '../../utils/config';
 import { transporter } from '../../server';
 
 const sendVerifyController = async (req: Request, res: Response) => {
@@ -30,12 +29,12 @@ const sendVerifyController = async (req: Request, res: Response) => {
 
         // Create the message
         const mailOptions = {
-            from: NODEMAILER_USER,
+            from: process.env.NODEMAILER_USER,
             to: email,
             subject: 'Verify Your Account',
             html:
             `
-                <p>Please verify your email by clicking the following link: <a href="${DOMAIN}/api/auth/verify-account?token=${token}">Verify Email</a></p>
+                <p>Please verify your email by clicking the following link: <a href="${process.env.DOMAIN}/api/auth/verify-account?token=${token}">Verify Email</a></p>
             `
         };
 
