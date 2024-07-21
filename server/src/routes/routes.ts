@@ -10,6 +10,7 @@ import getFollowersController from '../controllers/getFollowersController';
 import getFollowingController from '../controllers/auth/getFollowingController';
 import { CreatePostSchema } from '../validationSchemas/createPostSchema';
 import createPostController from '../controllers/createPostController';
+import getUserPostsController from '../controllers/getUserPostsController';
 const router = express.Router();
 
 router.get('/users/:userId', getUserInfoController);
@@ -19,5 +20,6 @@ router.post('/users/:userId/unfollow', isLoggedIn, unfollowUserController);
 router.get('/users/:userId/followers', getFollowersController);
 router.get('/users/:userId/following', getFollowingController);
 router.post('/post', isLoggedIn, validateRequestInput(CreatePostSchema), createPostController);
+router.get('/users/:userId/posts', getUserPostsController);
 
 export default router;
