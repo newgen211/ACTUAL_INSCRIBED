@@ -12,6 +12,8 @@ import { CreatePostSchema } from '../validationSchemas/createPostSchema';
 import createPostController from '../controllers/createPostController';
 import getUserPostsController from '../controllers/getUserPostsController';
 import getPostController from '../controllers/getPostController';
+import deletePostController from '../controllers/deletePostController';
+import likePostController from '../controllers/likePostController';
 const router = express.Router();
 
 router.get('/users/:userId', getUserInfoController);
@@ -23,5 +25,7 @@ router.get('/users/:userId/following', getFollowingController);
 router.post('/post', isLoggedIn, validateRequestInput(CreatePostSchema), createPostController);
 router.get('/users/:userId/posts', getUserPostsController);
 router.get('/posts/:postId', getPostController);
+router.delete('/posts/:postId', isLoggedIn, deletePostController);
+router.post('/posts/:postId/like', isLoggedIn, likePostController);
 
 export default router;
