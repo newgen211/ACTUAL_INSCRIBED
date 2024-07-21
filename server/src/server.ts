@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDb from './utils/connectDb';
+import authRouter from './routes/authRoutes';
 
 // Load the .env variables
 dotenv.config();
@@ -15,6 +16,7 @@ connectDb();
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRouter);
 
 // Serve Static React Files
 
