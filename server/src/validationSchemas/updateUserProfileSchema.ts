@@ -25,7 +25,7 @@ export const UpdateUserProfileSchema = z.object({
         .email({ message: 'Invalid email address' }).optional(),
 
     bio: z.string().trim()
-    .max(1000, { message: 'Bio cannot exceed 1000 characters in length' }),
+    .max(1000, { message: 'Bio cannot exceed 1000 characters in length' }).optional(),
 
     profile_image: z.string().trim().optional()
 });
