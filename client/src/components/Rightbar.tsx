@@ -1,11 +1,12 @@
 import { Box } from '@mui/material';
+import SearchBar from './Searchbar';
 
 
 export default function Rightbar() {
 
     return (
 
-        <Box bgcolor='lightcoral' flex={2} p={2}
+        <Box flex={2} p={2} borderLeft={1}
             sx={{
                 display: { xs: 'none', sm: 'block' }
             }}
@@ -13,7 +14,7 @@ export default function Rightbar() {
 
             <Box position='fixed'>
                 
-                Rightbar
+                <SearchBar />
 
             </Box>
 

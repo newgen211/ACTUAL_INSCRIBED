@@ -5,7 +5,7 @@ export default function Sidebar() {
 
     return (
 
-        <Box flex={2} p={2}
+        <Box flex={2} p={2} borderRight={1}
             sx={{
                 display: { xs: 'none', sm: 'block' },
             }}

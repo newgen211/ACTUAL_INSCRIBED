@@ -8,7 +8,7 @@ export default function Feed() {
 
     return (
 
-        <Box flex={4} p={2} borderLeft={1} borderRight={1}>
+        <Box flex={4} p={2}>
 
             <FeedTabs />
             <NewPostForm />
