@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Box, IconButton, InputBase, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Box, IconButton, InputBase, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import { Air, Settings, Logout } from '@mui/icons-material';
+import { useState } from 'react';
 
 /* Create a custom Toolbar */
 const StyledToolbar = styled(Toolbar)({
@@ -32,6 +33,9 @@ const UserBox = styled(Box)({
 
 export default function Navbar() {
 
+    /* Define State to keep track if menu is open or closed */
+    const [menuOpen, setMenuOpen] = useState(false);
+
     return (
 
         <AppBar position='sticky'>
@@ -62,7 +66,33 @@ export default function Navbar() {
                 <UserBox>
                     
                     <Typography>Username</Typography>
-                    <Avatar sx={{ width: 30, height: 30 }} src='https://miro.medium.com/v2/resize:fit:720/format:webp/0*Ggt-XwliwAO6QURi.jpg' />
+                    <Avatar
+                        sx={{ width: 30, height: 30 }}
+                        onClick = {(e) => setMenuOpen(true)}
+                        src='https://miro.medium.com/v2/resize:fit:720/format:webp/0*Ggt-XwliwAO6QURi.jpg' 
+                        alt = 'XX'
+                    />
+                    
+                    <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        open={menuOpen}
+                        onClose={(e) => setMenuOpen(false)}
+                        anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                        }}
+                    >
+                        
+                        <MenuItem>Profile</MenuItem>
+                        <MenuItem>My account</MenuItem>
+                        <MenuItem>Logout</MenuItem>
+
+                    </Menu>
 
                 </UserBox>
 
