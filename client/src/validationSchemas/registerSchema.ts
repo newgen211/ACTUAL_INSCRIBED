@@ -26,7 +26,7 @@ export const RegistrationSchema = z.object({
 
     email: z.string().trim()
         .min(1, { message: 'Email address is required' })
-        .max(255, { message: 'Email address cannot exceed 50 characters in length' })
+        .max(255, { message: 'Email address cannot exceed 255 characters in length' })
         .email({ message: 'Invalid email address' }),
 
     password: z.string().trim()
