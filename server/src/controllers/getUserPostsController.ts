@@ -4,10 +4,19 @@ import { IAPIResponse } from '../types/IApiResponse';
 import mongoose from 'mongoose';
 
 const getUserPostsController = async (req: Request, res: Response) => {
-
     try {
-
         const { userId } = req.params;
+        
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            const response: IAPIResponse = { 
+                message: 'Invalid user ID', 
+                code: 400, 
+                errors: [{ field: 'userId', message: 'Invalid user ID format' }] 
+            };
+            res.status(response.code).json(response);
+            return;
+        }
+
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 10;
 
@@ -52,7 +61,7 @@ const getUserPostsController = async (req: Request, res: Response) => {
         ]);
 
         // Get the total count of posts
-        const totalPosts = await Post.countDocuments({ user: userId });
+        const totalPosts = await Post.countDocuments({ user: userObjectId });
 
         // Return a success response with posts and pagination info
         const response: IAPIResponse = {
@@ -69,21 +78,13 @@ const getUserPostsController = async (req: Request, res: Response) => {
         };
         
         res.status(response.code).json(response);
-        return;
-
-
-    }
-
-    catch(error) {
-
+    } catch (error) {
         console.log(`Get User Posts Error: ${error}`);
 
         // Send error response
         const response: IAPIResponse = { message: 'Internal Server Error', code: 500 };
         res.status(response.code).json(response);
-
     }
-
 };
 
 export default getUserPostsController;
