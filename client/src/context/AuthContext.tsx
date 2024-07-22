@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import { Navigate } from 'react-router-dom';
 
 interface AuthState {
     userId: string;
@@ -10,6 +11,7 @@ interface AuthContextType {
     auth: AuthState | null;
     setAuth: Dispatch<SetStateAction<AuthState | null>>;
     clearAuth: () => void;
+    logout: () => void;
 }
 
 interface AuthProviderProps {
@@ -39,6 +41,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAuth(null);
     };
 
+    const logout = () => {
+        clearAuth();
+        <Navigate to='/' />
+    };
+
     useEffect(() => {
         const storedAuth = localStorage.getItem('auth');
         if (storedAuth) {
@@ -47,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth: updateAuth, clearAuth }}>
+        <AuthContext.Provider value={{ auth, setAuth: updateAuth, clearAuth, logout }}>
             {children}
         </AuthContext.Provider>
     );

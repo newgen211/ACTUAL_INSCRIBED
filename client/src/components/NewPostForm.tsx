@@ -11,7 +11,7 @@ export default function NewPostForm() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError]     = useState<string>('');
     const [success, setSuccess] = useState<string>('');
-    const { auth } = useAuth();
+    const { auth, logout } = useAuth();
 
     /* Handle content change */
     const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +44,13 @@ export default function NewPostForm() {
             // Get the token from localstorage
             const token = localStorage.getItem('token');
 
+            if (!token) {
+                setError('User is not authenticated');
+                setLoading(false);
+                logout();
+                return;
+            }
+
             // Attempt to create a new post
             const response = await axios.post('/api/post', 
                 { 
@@ -65,6 +72,16 @@ export default function NewPostForm() {
         catch(error) {
 
             console.error('Error creating post:', error);
+
+            if (axios.isAxiosError(error) && error.response) {
+                
+                if(error.response.data.code === 401) logout();
+
+            } 
+            
+            else {
+                setError('An error occurred while creating the post');
+            }
 
         }
 
