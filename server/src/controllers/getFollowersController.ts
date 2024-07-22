@@ -25,8 +25,11 @@ const getFollowersController = async (req: Request, res: Response) => {
         // Find all the followers of the user
         const followers = await Follow.find({ following: userId }).populate('follower', 'username');
 
+        // Count the number of followers
+        const numberOfFollowers = followers.length;
+
         // Return a success message and the followers
-        const response: IAPIResponse = { message: 'Followers retrieved successfully', code: 200, data: followers };
+        const response: IAPIResponse = { message: 'Followers retrieved successfully', code: 200, data: { numberOfFollowers, followers } };
         res.status(response.code).json(response);
         return;
 
