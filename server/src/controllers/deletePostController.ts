@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { Post } from '../models/Post';
 import { IAPIResponse } from '../types/IApiResponse';
+import { Comment } from '../models/Comment';
 
 const deletePostController = async (req: Request, res: Response) => {
 
@@ -35,6 +36,9 @@ const deletePostController = async (req: Request, res: Response) => {
 
         // Delete the post
         await Post.deleteOne({ _id: postObjectId });
+
+        // Delete all comments associated with the post
+        await Comment.deleteMany({ post: postObjectId });
 
         // Return a success response
         const response: IAPIResponse = { message: 'Post deleted successfully', code: 200 };
