@@ -27,7 +27,7 @@ export default function Homepage() {
         const fetchUserInfo = async () => {
             try {
 
-                const userId = 1223;  //auth?.userId;
+                const userId = localStorage.getItem('userId');
 
                 const response = await axios.get(`/api/users/${userId}`);
                 setUserInfo(response.data.data);

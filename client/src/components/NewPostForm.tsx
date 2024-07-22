@@ -46,7 +46,6 @@ export default function NewPostForm() {
             if (!token) {
                 setError('User is not authenticated');
                 setLoading(false);
-                // logout();
                 return;
             }
 
@@ -54,7 +53,7 @@ export default function NewPostForm() {
             const response = await axios.post('/api/post', 
                 { 
                     content, 
-                    // userId: auth?.userId
+                    userId: localStorage.getItem('userId')
                 },
                 {
                     headers: {
