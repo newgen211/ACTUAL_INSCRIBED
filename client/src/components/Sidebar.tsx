@@ -1,5 +1,5 @@
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
-import { Home, People, Public, PersonPin, Settings, ModeNight } from '@mui/icons-material';
+import { Avatar, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch, Typography } from '@mui/material';
+import { Home, People, Public, PersonPin, Settings } from '@mui/icons-material';
 
 export default function Sidebar() {
 
@@ -7,11 +7,19 @@ export default function Sidebar() {
 
         <Box flex={2} p={2}
             sx={{
-                display: { xs: 'none', sm: 'block' }
+                display: { xs: 'none', sm: 'block' },
             }}
         >
             
-            <Box position='fixed'>
+            <Box position='fixed'
+                sx={{
+                    height: '100vh',
+                    width: '240px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                }}
+            >
 
                 <List>
 
@@ -75,19 +83,22 @@ export default function Sidebar() {
 
                     </ListItem>
 
-                    {/* Dark Mode Item */}
-                    <ListItem disablePadding>
-
-                        <ListItemButton>
-
-                            <ListItemIcon><ModeNight /></ListItemIcon>
-                            <Switch />
-
-                        </ListItemButton>
-
-                    </ListItem>
-
                 </List>
+
+            {/* Bottom Section */}
+
+            <List sx={{ mb: 2 }}>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <Avatar>EK</Avatar>
+                                <Typography>ekasky</Typography>
+                            </Box>
+                            <Switch sx={{ marginLeft: 'auto' }} />
+                        </ListItemButton>
+                    </ListItem>
+            </List>
+
 
             </Box>
 

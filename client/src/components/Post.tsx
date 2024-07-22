@@ -6,7 +6,7 @@ export default function Post() {
 
     return (
 
-        <Card sx={{ m: 2 }}>
+        <Card sx={{ my: 2 }}>
         
             <CardHeader avatar={ <Avatar sx={{ bgcolor: 'red' }}>R</Avatar>}
                 action={
