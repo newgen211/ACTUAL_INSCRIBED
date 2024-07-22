@@ -32,7 +32,7 @@ export default function RegisterPage() {
                     {/* Form title */}
                     <Typography component="h1" variant="h5">Register</Typography>
 
-                    {/* Login Form */}
+                    {/* Register Form */}
                     <Box component="form" noValidate sx={{ mt: 2 }}>
 
                         <Grid container spacing={2}>
