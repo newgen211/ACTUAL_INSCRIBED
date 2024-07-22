@@ -1,10 +1,11 @@
+import { Box } from '@mui/material';
 
 
 export default function Navbar() {
 
     return (
 
-        <h1>Navbar</h1>
+        <Box bgcolor='skyblue'>Navbar</Box>
 
     );
 
