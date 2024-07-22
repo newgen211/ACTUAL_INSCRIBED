@@ -1,6 +1,6 @@
 import { Alert, Avatar, Box, Button, Grid, IconButton, InputAdornment, Link, Paper, TextField, Typography } from '@mui/material';
 import { LockOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link as ReactRouterDomLink, useNavigate } from 'react-router-dom';
+import { Navigate, Link as ReactRouterDomLink } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,8 +18,7 @@ export default function LoginPage() {
     const [loading, setLoading]                         = useState<boolean>(false);
     const [showPassword, setShowPassword]               = useState<boolean>(false);
 
-    const navigate = useNavigate();
-    const { setAuth } = useAuth();
+    const { auth, setAuth } = useAuth();
 
     /* Functions to toggle show passwors state */
     const toggleShowPassword        = () => setShowPassword(!showPassword);
@@ -59,7 +58,7 @@ export default function LoginPage() {
             setMessage(response.data.message);
 
             // Navigate to the home page
-            navigate('/homepage');
+            <Navigate to='/homepage' />
 
         }
         
@@ -110,6 +109,11 @@ export default function LoginPage() {
             return () => clearTimeout(timer);
         }
     }, [showAlert]);
+
+    /* Redirect to homepage if logged in */
+    if (auth) {
+        return <Navigate to="/homepage" />;
+    }
 
     return (
 
