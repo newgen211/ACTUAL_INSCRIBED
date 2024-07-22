@@ -1,21 +1,25 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
+import RegisterPage from './pages/RegisterPage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Homepage from './pages/Homepage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import api from './util/api';
 
 
 // Main App component
 export default function App() {
   return (
     <BrowserRouter>
+      
       <Routes>
-
-        <Route path='/' element={<PublicRoute element={<LoginPage />} />} />
-
-        <Route path='/dashboard' element={<ProtectedRoute element={<DashboardPage />} />} />
-
+        <Route path="/" element={<PublicRoute element={<LoginPage />} />} />
+        <Route path="/register" element={<PublicRoute element={<RegisterPage />} />} />
+        <Route path="/forgot-password" element={<PublicRoute element={<ForgotPasswordPage />} />} />
+        <Route path="/homepage" element={<ProtectedRoute element={<Homepage />} />} />
       </Routes>
+
     </BrowserRouter>
   );
 }
@@ -31,21 +35,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        // Get the login token from localStorage
-        const token = localStorage.getItem('token');
-
-        // Ensure the token is valid and present
-        if (!token) {
-          setIsAuthenticated(false);
-          return;
-        }
-
-        // Send the request to check authentication status
-        const response = await axios.get('/api/auth/is-auth', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        // Check if the response has isAuthenticated property
+        const response = await api.get('/api/auth/is-auth');
         if (response.status === 200 && response.data.data) {
           setIsAuthenticated(true);
         } else {
@@ -61,7 +51,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   }, []);
 
   if (isAuthenticated === null) {
-    // Show a loading indicator or skeleton screen while the auth status is being checked
     return <div>Loading...</div>;
   }
 
@@ -80,21 +69,7 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ element }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        // Get the login token from localStorage
-        const token = localStorage.getItem('token');
-
-        // If token is not present, user is not authenticated
-        if (!token) {
-          setIsAuthenticated(false);
-          return;
-        }
-
-        // Send the request to check authentication status
-        const response = await axios.get('/api/auth/is-auth', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        // Set the authentication status based on the response
+        const response = await api.get('/api/auth/is-auth');
         if (response.status === 200 && response.data.data) {
           setIsAuthenticated(true);
         } else {
@@ -110,9 +85,8 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ element }) => {
   }, []);
 
   if (isAuthenticated === null) {
-    // Show a loading indicator or skeleton screen while the auth status is being checked
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : element;
+  return isAuthenticated ? <Navigate to="/homepage" replace /> : element;
 };
