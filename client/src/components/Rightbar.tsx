@@ -10,7 +10,13 @@ export default function Rightbar() {
                 display: { xs: 'none', sm: 'block' }
             }}
         >
-            Rightbar
+
+            <Box position='fixed'>
+                
+                Rightbar
+
+            </Box>
+
         </Box>
 
     );

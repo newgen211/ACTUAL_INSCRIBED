@@ -11,81 +11,85 @@ export default function Sidebar() {
             }}
         >
             
-            <List>
+            <Box position='fixed'>
 
-                {/* Home Item */}
-                <ListItem disablePadding>
+                <List>
 
-                    <ListItemButton>
+                    {/* Home Item */}
+                    <ListItem disablePadding>
 
-                        <ListItemIcon><Home /></ListItemIcon>
-                        <ListItemText primary="Home" />
+                        <ListItemButton>
 
-                    </ListItemButton>
+                            <ListItemIcon><Home /></ListItemIcon>
+                            <ListItemText primary="Home" />
 
-                </ListItem>
+                        </ListItemButton>
 
-                {/* For You Feed Item */}
-                <ListItem disablePadding>
+                    </ListItem>
 
-                    <ListItemButton>
+                    {/* For You Feed Item */}
+                    <ListItem disablePadding>
 
-                        <ListItemIcon><People /></ListItemIcon>
-                        <ListItemText primary="For You" />
+                        <ListItemButton>
 
-                    </ListItemButton>
+                            <ListItemIcon><People /></ListItemIcon>
+                            <ListItemText primary="For You" />
 
-                </ListItem>
+                        </ListItemButton>
 
-                {/* Discover Feed Item */}
-                <ListItem disablePadding>
+                    </ListItem>
 
-                    <ListItemButton>
+                    {/* Discover Feed Item */}
+                    <ListItem disablePadding>
 
-                        <ListItemIcon><Public /></ListItemIcon>
-                        <ListItemText primary="Discover" />
+                        <ListItemButton>
 
-                    </ListItemButton>
+                            <ListItemIcon><Public /></ListItemIcon>
+                            <ListItemText primary="Discover" />
 
-                </ListItem>
+                        </ListItemButton>
 
-                {/* Profile Item */}
-                <ListItem disablePadding>
+                    </ListItem>
 
-                    <ListItemButton>
+                    {/* Profile Item */}
+                    <ListItem disablePadding>
 
-                        <ListItemIcon><PersonPin /></ListItemIcon>
-                        <ListItemText primary="Profile" />
+                        <ListItemButton>
 
-                    </ListItemButton>
+                            <ListItemIcon><PersonPin /></ListItemIcon>
+                            <ListItemText primary="Profile" />
 
-                </ListItem>
+                        </ListItemButton>
 
-                {/* Settings Item */}
-                <ListItem disablePadding>
+                    </ListItem>
 
-                    <ListItemButton>
+                    {/* Settings Item */}
+                    <ListItem disablePadding>
 
-                        <ListItemIcon><Settings /></ListItemIcon>
-                        <ListItemText primary="Settings" />
+                        <ListItemButton>
 
-                    </ListItemButton>
+                            <ListItemIcon><Settings /></ListItemIcon>
+                            <ListItemText primary="Settings" />
 
-                </ListItem>
+                        </ListItemButton>
 
-                {/* Dark Mode Item */}
-                <ListItem disablePadding>
+                    </ListItem>
 
-                    <ListItemButton>
+                    {/* Dark Mode Item */}
+                    <ListItem disablePadding>
 
-                        <ListItemIcon><ModeNight /></ListItemIcon>
-                        <Switch />
+                        <ListItemButton>
 
-                    </ListItemButton>
+                            <ListItemIcon><ModeNight /></ListItemIcon>
+                            <Switch />
 
-                </ListItem>
+                        </ListItemButton>
 
-            </List>
+                    </ListItem>
+
+                </List>
+
+            </Box>
 
         </Box>
 

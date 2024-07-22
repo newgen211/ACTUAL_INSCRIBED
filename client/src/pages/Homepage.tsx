@@ -10,7 +10,7 @@ export default function Homepage() {
 
         <Box>
 
-            <Navbar />
+            {/* <Navbar /> */}
 
             <Stack direction='row' spacing={2} justifyContent='space-between'>
                 <Sidebar />
