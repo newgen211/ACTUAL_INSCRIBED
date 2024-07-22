@@ -57,7 +57,15 @@ const loginController = async (req: Request, res: Response) => {
         const token = createAccessToken(user.id);
 
         // Send success response with the access token
-        const response: IAPIResponse = { message: 'Login Successful', code: 200, token };
+        const response: IAPIResponse = { message: 'Login Successful', code: 200, token, data: {
+            
+            userId: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            username: user.username,
+            email: user.email,
+
+        } };
         res.status(response.code).json(response);
         return;
 
