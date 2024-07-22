@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { Post } from '../models/Post';
 import { IAPIResponse } from '../types/IApiResponse';
 import { Comment } from '../models/Comment';
+import { Like } from '../models/Like';
 
 const deletePostController = async (req: Request, res: Response) => {
 
@@ -34,11 +35,14 @@ const deletePostController = async (req: Request, res: Response) => {
 
         }
 
-        // Delete the post
-        await Post.deleteOne({ _id: postObjectId });
+        // Delete all posts created by the user
+        await Post.deleteMany({ user: req.user.userId });
 
-        // Delete all comments associated with the post
-        await Comment.deleteMany({ post: postObjectId });
+        // Delete all likes made by the user
+        await Like.deleteMany({ user: req.user.userId });
+
+        // Delete all comments made by the user
+        await Comment.deleteMany({ user: req.user.userId });
 
         // Return a success response
         const response: IAPIResponse = { message: 'Post deleted successfully', code: 200 };
