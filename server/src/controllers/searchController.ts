@@ -4,7 +4,7 @@ import { IAPIResponse } from '../types/IApiResponse';
 
 const searchController = async (req: Request, res: Response) => {
     try {
-        const { query } = req.query;
+        const query: string = req.body.query;
 
         if (!query || typeof query !== 'string') {
             const response: IAPIResponse = { message: 'Bad Request', code: 400, errors: [{ field: 'query', message: 'Query parameter is required and should be a string' }] };
