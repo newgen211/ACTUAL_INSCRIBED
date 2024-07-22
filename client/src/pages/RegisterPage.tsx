@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, Grid, Link, Paper, TextField, Typography } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import { Link as ReactRouterDomLink } from 'react-router-dom';
-import logo from '../../public/logo-bg-rm.png';
 
 export default function RegisterPage() {
 
@@ -16,11 +15,7 @@ export default function RegisterPage() {
                 backgroundPosition: 'left',
 
             }}
-            >
-
-                <Box component="img" src={logo} alt="Logo" sx={{ position: 'absolute', bottom: 16, left: 16, maxWidth: { sm: 150, md: 250 },  display: { xs: 'none', sm: 'block' } }} />
-
-            </Grid>
+        />
 
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 

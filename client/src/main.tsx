@@ -4,7 +4,15 @@ import './index.css';
 import { createTheme, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
-const theme = createTheme({});
+const theme = createTheme({
+
+    palette: {
+
+        mode: 'dark'
+
+    }
+
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
