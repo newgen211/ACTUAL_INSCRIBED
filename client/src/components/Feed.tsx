@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import Post from './Post';
 import NewPostForm from './NewPostForm';
-import FeedTabs from './FeedTabs';
+import HomePageComponent from './homeComponents/HomePageComponet';
 
 
 export default function Feed() {
@@ -10,36 +10,8 @@ export default function Feed() {
 
         <Box flex={4} p={2}>
 
-            <FeedTabs />
-            <NewPostForm />
-
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            //<NewPostForm />
+            <HomePageComponent/>
 
         </Box>
 
