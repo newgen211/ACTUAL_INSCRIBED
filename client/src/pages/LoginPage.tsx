@@ -49,14 +49,17 @@ export default function LoginPage() {
 
             // Set the auth state
             setAuth({
-                userId: response.data.user.id,
-                username: response.data.user.username,
-                token: response.data.token,
+                userId: response.data.data.userId,
+                username: response.data.data.username,
+                token: response.data.data.token,
             });
 
             // Set the response state
             setCode(response.data.code);
             setMessage(response.data.message);
+
+            // Navigate to the home page
+            navigate('/homepage');
 
         }
         
@@ -80,6 +83,8 @@ export default function LoginPage() {
                 setMessage('An unexpected error occured');
 
             }
+
+            console.error('Login Error:', error);
 
         }
 

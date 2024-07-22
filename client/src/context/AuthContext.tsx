@@ -1,54 +1,62 @@
-import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
 
-// Define the AuthState type
 interface AuthState {
-
     userId: string;
     username: string;
     token: string;
-
 }
 
-// Define the AuthContext value type
 interface AuthContextType {
-
     auth: AuthState | null;
     setAuth: Dispatch<SetStateAction<AuthState | null>>;
-
+    clearAuth: () => void;
 }
 
-// Define the props type for the AuthProvider
 interface AuthProviderProps {
     children: ReactNode;
 }
 
-// Create the AuthContext with a default value
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// AuthProvider component to provide the auth state
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+    const [auth, setAuth] = useState<AuthState | null>(() => {
+        const storedAuth = localStorage.getItem('auth');
+        return storedAuth ? JSON.parse(storedAuth) : null;
+    });
 
-    const [auth, setAuth] = useState<AuthState | null>(null);
+    const updateAuth: Dispatch<SetStateAction<AuthState | null>> = (authData) => {
+        const newAuth = authData instanceof Function ? authData(auth) : authData;
+        if (newAuth) {
+            localStorage.setItem('auth', JSON.stringify(newAuth));
+        } else {
+            localStorage.removeItem('auth');
+        }
+        setAuth(newAuth);
+    };
+
+    const clearAuth = () => {
+        localStorage.removeItem('auth');
+        setAuth(null);
+    };
+
+    useEffect(() => {
+        const storedAuth = localStorage.getItem('auth');
+        if (storedAuth) {
+            setAuth(JSON.parse(storedAuth));
+        }
+    }, []);
 
     return (
-
-        <AuthContext.Provider value={{ auth, setAuth }}>
+        <AuthContext.Provider value={{ auth, setAuth: updateAuth, clearAuth }}>
             {children}
         </AuthContext.Provider>
-
     );
-
 };
 
-// Custom hook to use the AuthContext
 export const useAuth = () => {
-
     const context = useContext(AuthContext);
-
     if (context === null) {
         throw new Error('useAuth must be used within an AuthProvider');
     }
-
     return context;
-    
 };
