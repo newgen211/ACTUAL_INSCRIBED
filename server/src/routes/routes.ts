@@ -22,6 +22,7 @@ import deleteCommentController from '../controllers/deleteCommentController';
 import getForYouFeedController from '../controllers/getForYouFeedController';
 import getDiscoverFeedController from '../controllers/getDiscoverFeedController';
 import deleteAccountController from '../controllers/deleteAccountController';
+import searchController from '../controllers/searchController';
 const router = express.Router();
 
 router.get('/users/for-you-feed', isLoggedIn, getForYouFeedController);
@@ -43,5 +44,6 @@ router.post('/posts/:postId/unlike', isLoggedIn, unlikePostController);
 router.post('/posts/:postId/comment', isLoggedIn, validateRequestInput(CreateCommentSchema), createCommentController);
 router.get('/posts/:postId/comments', getPostComments);
 router.delete('/posts/:postId/comment/:commentId', isLoggedIn, deleteCommentController);
+router.post('/search', searchController);
 
 export default router;
