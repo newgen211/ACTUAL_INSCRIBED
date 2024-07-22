@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema } from '../validationSchemas/loginSchema';
 import axios from 'axios';
 import { IAPIResponse } from '../types/IApiResponse';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
 
@@ -18,6 +19,7 @@ export default function LoginPage() {
     const [showPassword, setShowPassword]               = useState<boolean>(false);
 
     const navigate = useNavigate();
+    const { setAuth } = useAuth();
 
     /* Functions to toggle show passwors state */
     const toggleShowPassword        = () => setShowPassword(!showPassword);
@@ -44,6 +46,13 @@ export default function LoginPage() {
 
             // Store the json web token in localstorage
             localStorage.setItem('token', response.data.token);
+
+            // Set the auth state
+            setAuth({
+                userId: response.data.user.id,
+                username: response.data.user.username,
+                token: response.data.token,
+            });
 
             // Set the response state
             setCode(response.data.code);
