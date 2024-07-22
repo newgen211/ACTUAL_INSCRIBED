@@ -7,7 +7,7 @@ export default function Homepage() {
 
     return (
 
-        <Box sx={{ px: 10 }}>
+        <Box sx={{ px: {sm: 1, md: 10} }}>
 
             <Stack direction='row' spacing={2} justifyContent='space-between'>
                 <Sidebar />
