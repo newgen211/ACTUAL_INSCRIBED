@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import SearchBar from './Searchbar';
+import UserCard from './UserCard';
 
 
 export default function Rightbar() {
@@ -15,6 +16,7 @@ export default function Rightbar() {
             <Box position='fixed'>
                 
                 <SearchBar />
+                <UserCard />
 
             </Box>
 
