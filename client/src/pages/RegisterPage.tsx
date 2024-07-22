@@ -119,8 +119,7 @@ export default function RegisterPage() {
                     <Box component="form" onSubmit={handleSubmit(handleFormSubmit)} noValidate sx={{ mt: 2 }}>
 
                         {/* Show server response */}
-
-                        {showAlert && <Alert sx={{mb: 3}} severity={code === 201 ? 'success' : 'error'}>{message}</Alert>}
+                        {showAlert && <Alert sx={{mb: 3, width: '100%'}} severity={code === 201 ? 'success' : 'error'}>{message}</Alert>}
  
                         <Grid container spacing={2}>
 

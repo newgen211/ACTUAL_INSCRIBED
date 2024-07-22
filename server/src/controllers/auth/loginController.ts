@@ -23,6 +23,15 @@ const loginController = async (req: Request, res: Response) => {
 
         }
 
+        // Check if the account is locked from to many login attempts
+        if(user.account_locked) {
+
+            const response: IAPIResponse = { message: 'Too many login attempts. Reset Your Password.', code: 403 };
+            res.status(response.code).json(response);
+            return;
+
+        }
+
         // Verify the password provided matches the password on file
         const passwordMatch = await argon2.verify(user.password, password);
 
@@ -39,24 +48,6 @@ const loginController = async (req: Request, res: Response) => {
             
             // Respond with error
             const response: IAPIResponse = { message: 'Invalid username or password', code: 401 };
-            res.status(response.code).json(response);
-            return;
-
-        }
-
-        // Check if the account is verified
-        if(!user.account_verified) {
-
-            const response: IAPIResponse = { message: 'Account Not Verifed', code: 403 };
-            res.status(response.code).json(response);
-            return;
-
-        }
-
-        // Check if the account is locked from to many login attempts
-        if(user.account_locked) {
-
-            const response: IAPIResponse = { message: 'Too many login attempts. Reset Your Password.', code: 403 };
             res.status(response.code).json(response);
             return;
 
