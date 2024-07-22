@@ -1,13 +1,18 @@
 import { Avatar, Box, Button, Card, CardContent, Typography } from '@mui/material';
+import { IUser } from '../pages/Homepage';
 
-export default function UserCard() {
+interface UserCardProps {
+    userInfo: IUser | null;
+}
+
+export default function UserCard({ userInfo }: UserCardProps) {
     // Example user data
     const user = {
-        username: 'Username',
-        avatar: 'https://via.placeholder.com/150',
+        username: userInfo?.username,
+        avatar: userInfo?.profile_image,
         followers: 1200,
         following: 180,
-        bio: 'This is a short bio of the user.',
+        bio: userInfo?.bio,
     };
 
     return (

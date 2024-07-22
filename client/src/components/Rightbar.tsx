@@ -1,9 +1,13 @@
 import { Box } from '@mui/material';
 import SearchBar from './Searchbar';
 import UserCard from './UserCard';
+import { IUser } from '../pages/Homepage';
 
+interface RightbarProps {
+    userInfo: IUser | null;
+}
 
-export default function Rightbar() {
+export default function Rightbar({ userInfo }: RightbarProps) {
 
     return (
 
@@ -16,7 +20,7 @@ export default function Rightbar() {
             <Box position='fixed'>
                 
                 <SearchBar />
-                <UserCard />
+                <UserCard userInfo={userInfo} />
 
             </Box>
 

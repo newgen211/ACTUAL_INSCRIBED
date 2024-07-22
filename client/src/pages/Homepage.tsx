@@ -13,6 +13,7 @@ export interface IUser {
     username: string;
     email: string;
     profile_image: string;
+    bio: string;
     created_at: Date;
 };
 
@@ -65,7 +66,7 @@ export default function Homepage() {
             <Stack direction='row' spacing={2} justifyContent='space-between'>
                 <Sidebar userInfo={userInfo} />
                 <Feed />
-                <Rightbar />
+                <Rightbar userInfo={userInfo} />
             </Stack>
 
             {/* Display server response */}
