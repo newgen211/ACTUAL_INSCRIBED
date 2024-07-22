@@ -1,7 +1,13 @@
 import { Avatar, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch, Typography } from '@mui/material';
 import { Home, People, Public, PersonPin, Settings } from '@mui/icons-material';
+import { IUser } from '../pages/Homepage';
 
-export default function Sidebar() {
+interface SidebarProps {
+    userInfo: IUser | null;
+}
+
+
+export default function Sidebar({ userInfo }: SidebarProps) {
 
     return (
 
@@ -88,15 +94,15 @@ export default function Sidebar() {
             {/* Bottom Section */}
 
             <List sx={{ mb: 2 }}>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                <Avatar>EK</Avatar>
-                                <Typography>ekasky</Typography>
-                            </Box>
-                            <Switch sx={{ marginLeft: 'auto' }} />
-                        </ListItemButton>
-                    </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <Avatar  src={userInfo?.profile_image}>{userInfo ? `${userInfo.first_name[0]}${userInfo.last_name[0]}` : 'U'}</Avatar>
+                            <Typography>{userInfo?.username}</Typography>
+                        </Box>
+                        <Switch sx={{ marginLeft: 'auto' }} />
+                    </ListItemButton>
+                </ListItem>
             </List>
 
 
