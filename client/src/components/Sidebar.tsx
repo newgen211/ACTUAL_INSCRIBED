@@ -3,6 +3,7 @@ import { Avatar, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText
 import { Home, People, Public, PersonPin, Settings } from '@mui/icons-material';
 import { IUser } from '../pages/Homepage';
 import SettingsDialog from './Settings';
+import {Link} from 'react-router-dom';
 
 interface SidebarProps {
     userInfo: IUser | null;
@@ -34,7 +35,7 @@ export default function Sidebar({ userInfo }: SidebarProps) {
                 <List>
                     {/* Home Item */}
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/homepage">
                             <ListItemIcon><Home /></ListItemIcon>
                             <ListItemText primary="Home" />
                         </ListItemButton>
@@ -42,7 +43,7 @@ export default function Sidebar({ userInfo }: SidebarProps) {
 
                     {/* For You Feed Item */}
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/following">
                             <ListItemIcon><People /></ListItemIcon>
                             <ListItemText primary="For You" />
                         </ListItemButton>
@@ -50,7 +51,9 @@ export default function Sidebar({ userInfo }: SidebarProps) {
 
                     {/* Discover Feed Item */}
                     <ListItem disablePadding>
-                        <ListItemButton>
+
+                        <ListItemButton component={Link} to="/discover">
+
                             <ListItemIcon><Public /></ListItemIcon>
                             <ListItemText primary="Discover" />
                         </ListItemButton>

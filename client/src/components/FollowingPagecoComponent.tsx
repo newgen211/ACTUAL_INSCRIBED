@@ -49,7 +49,7 @@ const FollowingPage: React.FC = () => {
 
     fetchFollowing();
   }, [sessionToken, userId]);
-
+ 
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -67,7 +67,7 @@ const FollowingPage: React.FC = () => {
   }
 
   return (
-    <Box p={3}>
+    <Box p={3} flex={2}>
       <Typography variant="h4" gutterBottom>
         Following
       </Typography>

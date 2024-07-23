@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, Typography, CircularProgress, Snackbar, Alert } from '@mui/material';
 import api from '../util/api'; // Ensure this utility is correctly configured
-import Post, { PostProps } from './homeComponents/PostContainer';
+import Post, { PostProps } from '../components/homeComponents/PostContainer';
 
-const ForYouPage: React.FC = () => {
+const DiscoverComponent: React.FC = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +11,7 @@ const ForYouPage: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await api.get('/api/users/for-you-feed');
+        const response = await api.get('/api/users/discover-feed');
         const postData = response.data.data.posts;
 
         // Map the posts data to PostProps structure
@@ -77,4 +77,4 @@ const ForYouPage: React.FC = () => {
   );
 };
 
-export default ForYouPage;
+export default DiscoverComponent;
