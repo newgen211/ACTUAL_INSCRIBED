@@ -23,8 +23,9 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
   const fetchComments = async () => {
     setLoading(true);
     setError(null); // Clear previous errors
-    console.log('Fetching comments for postId:', postId); // Print postId before fetching
+    // Print postId before fetching
     try {
+      console.log('Fetching comments for postId:', postId); 
       const url_get = `/api/posts/${postId}/comments`;
       console.log('Fetching comments from URL:', url_get);
 
@@ -46,7 +47,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
       if (responseData.code === 200) {
         const fetchedComments = responseData.data.comments.map((comment: any) => ({
           id: comment._id,
-          author: comment.userId.username,
+          author: comment.username,
           content: comment.content,
         }));
         setComments(fetchedComments);
