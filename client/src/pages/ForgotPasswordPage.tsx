@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LockOutlined } from '@mui/icons-material';
 import { Alert, Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Link as ReactRouterDomLink, useNavigate } from 'react-router-dom';
 import { ForgotPasswordSchema } from '../validationSchemas/forgotPasswordSchema';
 import api from '../util/api';
@@ -16,7 +16,6 @@ export default function ForgotPasswordPage() {
     const [message, setMessage]                         = useState<string>('');
     const [showAlert, setShowAlert]                     = useState<boolean>(false);
     const [loading, setLoading]                         = useState<boolean>(false);
-    const [showPassword, setShowPassword]               = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -100,17 +99,26 @@ export default function ForgotPasswordPage() {
                <Box component="form" onSubmit={handleSubmit(handleFormSubmit)} noValidate sx={{ mt: 2 }}>
                     
                     {/* Show the server response */}
-                    { showAlert ?? <Alert severity={code === 200 ? 'success' : 'error'}>{message}</Alert> }
+                    { showAlert && <Alert severity={code === 200 ? 'success' : 'error'}>{message}</Alert> }
 
                     {/* Email Input */}
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                    <Controller 
+                        control={control}
+                        name='email'
+                        render={({field}) => (
+
+                            <TextField
+                                {...field}
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                            />
+
+                        )}
                     />
 
                     {/* Submit Button */}
