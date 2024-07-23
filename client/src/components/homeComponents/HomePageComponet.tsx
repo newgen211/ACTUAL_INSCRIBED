@@ -87,10 +87,7 @@ const HomePageComponent: React.FC = () => {
           overflowY: 'auto',
         }}
       >
-        <NewPostForm />
-        <Button variant="contained" onClick={fetchPosts} sx={{ alignSelf: 'center', mb: 2 }}>
-          Refresh Feed
-        </Button>
+        <NewPostForm onPostCreated={fetchPosts} />
         {loading ? (
           <CircularProgress />
         ) : error ? (

@@ -2,8 +2,12 @@ import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, CardHeader,
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+interface NewPostFormProps {
+    onPostCreated: () => void;
+}
 
-export default function NewPostForm() {
+
+export default function NewPostForm({onPostCreated}: NewPostFormProps) {
 
     /* Define State */
     const [content, setContent] = useState<string>('');
@@ -64,6 +68,7 @@ export default function NewPostForm() {
 
             setContent('');
             setSuccess('Post created successfully');
+            onPostCreated();
 
         }
 
