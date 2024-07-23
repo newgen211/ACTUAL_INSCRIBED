@@ -88,8 +88,44 @@ export default function SettingsDialog({ open, onClose }: SettingsDialogProps) {
     };
 
     // Handle verify account
-    const handleVerifyAccount = () => {
-        console.log('Verify Account');
+    const handleVerifyAccount = async () => {
+        
+        try {
+
+            // Get user id
+            const userId = localStorage.getItem('userId');
+
+            // Get user info
+            const userInfo = await api.get(`/api/users/${userId}`);
+
+            console.log(userInfo);
+
+            // attempt to send verify email
+            const response = await api.post('/api/auth/send-verify', { email: userInfo.data.data.email });
+
+            setCode(response.data.code);
+            setMessage(response.data.message);
+
+        }
+
+        catch(error) {
+
+            if(axios.isAxiosError(error) && error.response) {
+
+                setCode(error.response.data.code);
+                setMessage(error.response.data.message);
+
+            }
+
+        }
+
+        finally {
+
+
+            setShowAlert(true);
+
+        }
+
     };
 
     // Open confirm delete dialog
