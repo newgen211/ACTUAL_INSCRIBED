@@ -64,7 +64,7 @@ export default function Homepage() {
             <Stack direction='row' spacing={2} justifyContent='space-between'>
                 <Sidebar userInfo={userInfo} />
                 <Feed />
-                <Rightbar userInfo={userInfo} />
+                <Rightbar />
             </Stack>
 
             {/* Display server response */}
