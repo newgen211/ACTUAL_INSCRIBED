@@ -50,6 +50,7 @@ const HomePageComponent: React.FC = () => {
         created_at: post.created_at,
         updated_at: post.updated_at,
         username: post.username,
+        owned : post.isOwnedByUser,
         comments: [],
       }));
 
@@ -106,6 +107,7 @@ const HomePageComponent: React.FC = () => {
                 created_at={post.created_at}
                 updated_at={post.updated_at}
                 comments={post.comments}
+                owned = {post.owned}
                 username={post.username}
               />
             ))}
