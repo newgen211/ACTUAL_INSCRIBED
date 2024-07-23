@@ -35,7 +35,7 @@ export default function Sidebar({ userInfo }: SidebarProps) {
                 <List>
                     {/* Home Item */}
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/homepage">
                             <ListItemIcon><Home /></ListItemIcon>
                             <ListItemText primary="Home" />
                         </ListItemButton>

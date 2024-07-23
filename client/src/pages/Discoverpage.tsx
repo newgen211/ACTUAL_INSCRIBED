@@ -4,7 +4,7 @@ import Rightbar from '../components/Rightbar';
 import { Alert, Box, Snackbar, Stack,Grid } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import ForYouPage from '../components/ForYouComponents';
+import DiscoverComponent from '../components/DiscoverPageComponent';
 
 export interface IUser {
     id: string;
@@ -17,7 +17,7 @@ export interface IUser {
     created_at: Date;
 };
 
-export default function Followingpage() {
+export default function Discover() {
 
     const [userInfo, setUserInfo] = useState<IUser | null>(null);
     const [code, setCode]         = useState<number>(0);
@@ -64,9 +64,9 @@ export default function Followingpage() {
 
             <Stack direction='row' spacing={2} justifyContent='space-between'>
                 <Sidebar userInfo={userInfo} />
-                <ForYouPage />
+                <DiscoverComponent />
                 
-          <FollowingSidebar />
+          <Rightbar />
           
             </Stack>
            

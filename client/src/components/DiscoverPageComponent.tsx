@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, Typography, CircularProgress, Snackbar, Alert } from '@mui/material';
 import api from '../util/api'; // Ensure this utility is correctly configured
-import Post, { PostProps } from './homeComponents/PostContainer';
+import Post, { PostProps } from '../components/homeComponents/PostContainer';
 
-const Discover: React.FC = () => {
+const DiscoverComponent: React.FC = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +54,7 @@ const Discover: React.FC = () => {
   }
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box sx={{ my: 2 }} flex={4}>
       {posts.map((post) => (
         <Card key={post.id} sx={{ mb: 2, boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' }}>
           <CardContent>
@@ -77,4 +77,4 @@ const Discover: React.FC = () => {
   );
 };
 
-export default Discover;
+export default DiscoverComponent;

@@ -54,7 +54,7 @@ const ForYouPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box sx={{ my: 2 }} flex={4}>
       {posts.map((post) => (
         <Card key={post.id} sx={{ mb: 2, boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' }}>
           <CardContent>

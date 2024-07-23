@@ -7,7 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import Followingpage from './pages/FollowingPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
-import Discover from './components/Discoverpage';
+import Discover from './pages/Discoverpage';
 
 
 // Main App component
