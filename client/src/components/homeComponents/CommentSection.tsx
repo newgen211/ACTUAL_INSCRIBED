@@ -23,13 +23,13 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
   const fetchComments = async () => {
     setLoading(true);
     setError(null); // Clear previous errors
-    console.log('Fetching comments for postId:', postId); // Print postId before fetching
+    // Print postId before fetching
     try {
-      const encodedPostId = encodeURIComponent(postId);
-      const url = `/api/user/get-post-comments?postId=${encodedPostId}&page=1`;
-      console.log('Fetching comments from URL:', url);
+      console.log('Fetching comments for postId:', postId); 
+      const url_get = `/api/posts/${postId}/comments`;
+      console.log('Fetching comments from URL:', url_get);
 
-      const response = await fetch(url, {
+      const response = await fetch(url_get, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${sessionToken}`,
@@ -47,7 +47,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
       if (responseData.code === 200) {
         const fetchedComments = responseData.data.comments.map((comment: any) => ({
           id: comment._id,
-          author: comment.userId.username,
+          author: comment.username,
           content: comment.content,
         }));
         setComments(fetchedComments);
@@ -69,10 +69,10 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
 
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
-
+    const url_post = `/api/posts/${postId}/comment`;
     try {
       const response = await fetch(
-        'https://inscribed-22337aee4c1b.herokuapp.com/api/user/create-comment',
+        url_post,
         {
           method: 'POST',
           headers: {

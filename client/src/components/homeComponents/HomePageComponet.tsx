@@ -48,6 +48,7 @@ const HomePageComponent: React.FC = () => {
           comment_count: 0, // Assuming comment_count is not available
           created_at: post.created_at,
           updated_at: post.updated_at,
+          username : post.username,
           comments: [], // Assuming comments are not included in the response for now
         }));
 
@@ -67,10 +68,10 @@ const HomePageComponent: React.FC = () => {
     <div style={{ backgroundColor: 'theme.palette.background.default', height: '100vh' }}>
       <Box
         position="relative"
-        left="20%"
+        left="0%"
         top="0"
         bottom="0"
-        width="70%"
+        width="100%"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -98,6 +99,7 @@ const HomePageComponent: React.FC = () => {
                 created_at={post.created_at}
                 updated_at={post.updated_at}
                 comments={post.comments}
+                username = {post.username}
               />
             ))}
           </Stack>
