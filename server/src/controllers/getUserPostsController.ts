@@ -55,7 +55,8 @@ const getUserPostsController = async (req: Request, res: Response) => {
                     username: '$user.username',
                     likesCount: { $size: '$likes' },
                     created_at: 1,
-                    updated_at: 1
+                    updated_at: 1,
+                    isOwnedByUser: { $eq: ['$user._id', new mongoose.Types.ObjectId(userId)] }
                 }
             }
         ]);
