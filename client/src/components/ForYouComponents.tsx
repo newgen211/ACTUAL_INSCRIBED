@@ -68,6 +68,7 @@ const ForYouPage: React.FC = () => {
               comment_count={post.comment_count}
               created_at={post.created_at}
               updated_at={post.updated_at}
+              owned = {post.owned}
               comments={post.comments}
             />
           </CardContent>

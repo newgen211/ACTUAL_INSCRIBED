@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Box, IconButton, Tooltip } from '@mui/material';
-import { Favorite, Delete } from '@mui/icons-material'; // Import Delete icon
+import { Typography, Box, IconButton, Tooltip, Button } from '@mui/material';
+import { Favorite, Delete, PersonAdd } from '@mui/icons-material'; // Import PersonAdd icon for follow button
 import CommentSection from './CommentSection'; // Import CommentSection component
 
 export interface Comment {
@@ -19,10 +19,11 @@ export interface PostProps {
   comment_count: number;
   created_at: string;
   updated_at: string;
+  owned: boolean;
   comments?: Comment[];
 }
 
-const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, repost_count, comment_count, created_at, updated_at, comments = [] }) => {
+const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, repost_count, comment_count, created_at, updated_at, owned, comments = [] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(like_count);
@@ -35,7 +36,9 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
   const sessionToken = localStorage.getItem('token');
+
   const handleFavoriteClick = async () => {
     try {
       const url = isFavorite ? `api/posts/${id}/unlike` : `api/posts/${id}/like`;
@@ -78,7 +81,7 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (response.ok) {
         // Handle successful delete
         console.log('Post deleted successfully');
@@ -94,6 +97,33 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
     }
   };
 
+  const handleFollow = async () => {
+    try {
+      const url = `api/users/${userId}/follow`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sessionToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.code === 409) {
+          console.log('Already following user');
+        } else {
+          console.log('Followed user successfully');
+        }
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to follow user:', errorData);
+      }
+    } catch (error) {
+      console.error('Error following user', error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -105,17 +135,33 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
         position: 'relative', // Make sure the position is relative for the delete button to be absolutely positioned
       }}
     >
-      <IconButton
-        onClick={handleDelete}
-        sx={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          color: 'gray',
-        }}
-      >
-        <Delete />
-      </IconButton>
+      {owned ? (
+        <IconButton
+          onClick={handleDelete}
+          sx={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            color: 'gray',
+          }}
+        >
+          <Delete />
+        </IconButton>
+      ) : (
+        <Button
+          onClick={handleFollow}
+          variant="contained"
+          color="primary"
+          sx={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+          }}
+          startIcon={<PersonAdd />}
+        >
+          Follow
+        </Button>
+      )}
       <Typography variant="h6" gutterBottom onClick={toggleExpand} sx={{ cursor: 'pointer' }}>
         {username}
       </Typography>

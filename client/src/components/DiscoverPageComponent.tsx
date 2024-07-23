@@ -25,6 +25,7 @@ const DiscoverComponent: React.FC = () => {
           comment_count: post.comment_count || 0, // Default to 0 if not provided
           created_at: post.created_at,
           updated_at: post.updated_at,
+          
           comments: post.comments || [], // Default to empty array if not provided
         }));
 
@@ -68,6 +69,7 @@ const DiscoverComponent: React.FC = () => {
               comment_count={post.comment_count}
               created_at={post.created_at}
               updated_at={post.updated_at}
+              owned = {post.owned}
               comments={post.comments}
             />
           </CardContent>
