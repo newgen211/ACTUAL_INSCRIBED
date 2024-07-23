@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Stack, CircularProgress, Typography } from '@mui/material';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Box, Stack, CircularProgress, Typography, Button } from '@mui/material';
 import Post, { PostProps } from './PostContainer';
+import NewPostForm from '../NewPostForm';
 
 const HomePageComponent: React.FC = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
@@ -9,60 +10,65 @@ const HomePageComponent: React.FC = () => {
 
   const sessionToken = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+
+  const fetchPosts = useCallback(async () => {
+    if (!sessionToken) {
+      setError('User not authenticated');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const url = `api/users/${userId}/posts`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${sessionToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+      console.log('Response Data:', responseData);
+
+      if (!Array.isArray(responseData.data.posts)) {
+        throw new Error('Response data format is incorrect');
+      }
+
+      const data: PostProps[] = responseData.data.posts.map((post: any) => ({
+        id: post._id,
+        userId: userId,
+        content: post.content,
+        like_count: post.likesCount,
+        repost_count: 0,
+        comment_count: 0,
+        created_at: post.created_at,
+        updated_at: post.updated_at,
+        username: post.username,
+        comments: [],
+      }));
+
+      const sortedPosts = data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      setPosts(sortedPosts);
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }, [sessionToken, userId]);
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      if (!sessionToken) {
-        setError('User not authenticated');
-        setLoading(false);
-        return;
-      }
-
-      try {
-        
-        const url = `api/users/${userId}/posts`;
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${sessionToken}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const responseData = await response.json();
-        console.log('Response Data:', responseData); // Log the response data
-
-        if (!Array.isArray(responseData.data.posts)) {
-          throw new Error('Response data format is incorrect');
-        }
-
-        const data: PostProps[] = responseData.data.posts.map((post: any) => ({
-          id: post._id,
-          userId: userId, // Assuming userId is not included in the individual post objects
-          content: post.content,
-          like_count: post.likesCount,
-          repost_count: 0, // Assuming repost_count is not available
-          comment_count: 0, // Assuming comment_count is not available
-          created_at: post.created_at,
-          updated_at: post.updated_at,
-          username : post.username,
-          comments: [], // Assuming comments are not included in the response for now
-        }));
-
-        const sortedPosts = data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-        setPosts(sortedPosts);
-      } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchPosts();
-  }, [sessionToken]);
+  }, [fetchPosts]);
+
+  const handlePostCreated = (newPost: PostProps) => {
+    setPosts([newPost, ...posts]);
+  };
 
   return (
     <div style={{ backgroundColor: 'theme.palette.background.default', height: '100vh' }}>
@@ -81,6 +87,10 @@ const HomePageComponent: React.FC = () => {
           overflowY: 'auto',
         }}
       >
+        <NewPostForm />
+        <Button variant="contained" onClick={fetchPosts} sx={{ alignSelf: 'center', mb: 2 }}>
+          Refresh Feed
+        </Button>
         {loading ? (
           <CircularProgress />
         ) : error ? (
@@ -99,7 +109,7 @@ const HomePageComponent: React.FC = () => {
                 created_at={post.created_at}
                 updated_at={post.updated_at}
                 comments={post.comments}
-                username = {post.username}
+                username={post.username}
               />
             ))}
           </Stack>
