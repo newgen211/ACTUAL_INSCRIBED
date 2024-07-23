@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import SearchBar from './Searchbar'; // Ensure this path is correct
+import SearchBar from './Searchbar';
 import UserCard from './UserCard';
 
 export default function Rightbar() {
