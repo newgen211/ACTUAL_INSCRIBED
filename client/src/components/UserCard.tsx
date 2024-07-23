@@ -7,7 +7,7 @@ interface UserCardProps {
 }
 
 const UserCard: React.FC<UserCardProps> = ({ userId }) => {
-  const [user, setUser] = useState<any>(null); // Using `any` type for simplicity
+  const [user, setUser] = useState<any>(null);
   const [followersCount, setFollowersCount] = useState<number>(0);
   const [followingCount, setFollowingCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,18 +18,20 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
       try {
         // Fetch user profile
         const userResponse = await api.get(`/api/users/${userId}`);
-        const userData = userResponse.data.data; // Accessing the 'data' field
+        const userData = userResponse.data.data;
         setUser(userData);
+
+        console.log(userResponse.data.data);
 
         // Fetch followers count
         const followersResponse = await api.get(`/api/users/${userId}/followers`);
         const followersData = followersResponse.data.data;
-        setFollowersCount(followersData.numberOfFollowers); // Directly accessing number of followers
+        setFollowersCount(followersData.numberOfFollowers);
 
         // Fetch following count
         const followingResponse = await api.get(`/api/users/${userId}/following`);
         const followingData = followingResponse.data.data;
-        setFollowingCount(followingData.numberOfFollowing); // Directly accessing number of following
+        setFollowingCount(followingData.numberOfFollowing);
       } catch (error) {
         setError('Failed to fetch user data');
       } finally {
@@ -53,7 +55,7 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
       <CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
           <Avatar
-            src="https://via.placeholder.com/64" // Placeholder for avatar image
+            src={user.profile_image ? user.profile_image : ''}
             alt={user?.username}
             sx={{ width: 64, height: 64, mr: 2 }}
           />
