@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, IconButton, Tooltip, Button } from '@mui/material';
-import { Favorite, Delete, PersonAdd } from '@mui/icons-material'; // Import PersonAdd icon for follow button
+import { Favorite, Delete, PersonAdd, PersonRemove } from '@mui/icons-material'; // Import icons
 import CommentSection from './CommentSection'; // Import CommentSection component
 
 export interface Comment {
@@ -27,11 +27,11 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(like_count);
+  const [isFollowing, setIsFollowing] = useState(false); // Initialize follow status
 
   useEffect(() => {
-    // Initialize the like status based on the initial props or any other logic
-    // You might need to fetch this information if it's not available initially
-  }, [id]);
+    // This effect could be used to check initial follow status if needed
+  }, [userId]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -51,19 +51,12 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
       });
 
       if (response.ok) {
-        // Update the UI based on whether we are liking or unliking
-        if (isFavorite) {
-          setLikesCount(prevCount => prevCount - 1);
-        } else {
-          setLikesCount(prevCount => prevCount + 1);
-        }
+        setLikesCount(prevCount => prevCount + (isFavorite ? -1 : 1));
         setIsFavorite(!isFavorite);
       } else {
         const data = await response.json();
         if (data.code === 409) {
-          // Handle the case where the user has already liked the post
           console.log('User has already liked this post');
-          // Optionally, you can provide user feedback or handle this case differently
         }
       }
     } catch (error) {
@@ -83,14 +76,10 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
       });
 
       if (response.ok) {
-        // Handle successful delete
         console.log('Post deleted successfully');
-        // You might need to refresh or redirect here
-        // For example, you could call a function to update the post list or navigate to another page
       } else {
         const errorData = await response.json();
         console.error('Failed to delete post:', errorData);
-        // Optionally, provide user feedback based on the error
       }
     } catch (error) {
       console.error('Error deleting post', error);
@@ -113,6 +102,7 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
         if (data.code === 409) {
           console.log('Already following user');
         } else {
+          setIsFollowing(true);
           console.log('Followed user successfully');
         }
       } else {
@@ -121,6 +111,32 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
       }
     } catch (error) {
       console.error('Error following user', error);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      const url = `api/users/${userId}/unfollow`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sessionToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.code === 200) {
+          setIsFollowing(false);
+          console.log('Unfollowed user successfully');
+        }
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to unfollow user:', errorData);
+      }
+    } catch (error) {
+      console.error('Error unfollowing user', error);
     }
   };
 
@@ -149,17 +165,17 @@ const Post: React.FC<PostProps> = ({ id, userId, username, content, like_count, 
         </IconButton>
       ) : (
         <Button
-          onClick={handleFollow}
+          onClick={isFollowing ? handleUnfollow : handleFollow}
           variant="contained"
-          color="primary"
+          color={isFollowing ? "secondary" : "primary"}
           sx={{
             position: 'absolute',
             top: 10,
             right: 10,
           }}
-          startIcon={<PersonAdd />}
+          startIcon={isFollowing ? <PersonRemove /> : <PersonAdd />}
         >
-          Follow
+          {isFollowing ? "Unfollow" : "Follow"}
         </Button>
       )}
       <Typography variant="h6" gutterBottom onClick={toggleExpand} sx={{ cursor: 'pointer' }}>
