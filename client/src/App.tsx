@@ -8,6 +8,7 @@ import PublicRoute from './components/PublicRoute';
 import Followingpage from './pages/FollowingPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Discover from './pages/Discoverpage';
+import AccountVerifiedPage from './pages/AccountVerifiedPage';
 
 
 // Main App component
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/homepage" element={<ProtectedRoute element={<Homepage />} />} />
         <Route path="/following" element={<ProtectedRoute element={<Followingpage />} />} />
         <Route path="/discover" element={<ProtectedRoute element={<Discover />} />} />
+        <Route path='/account-verified' element={<AccountVerifiedPage />} />
       </Routes>
 
     </BrowserRouter>

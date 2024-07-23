@@ -36,8 +36,7 @@ const verifyAccountController = async (req: Request, res: Response) => {
         // If the account is alredy verifed return error
         if(user.account_verified) {
 
-            const response: IAPIResponse = { message: 'Account already verified', code: 400 };
-            res.status(response.code).json(response);
+            res.status(200).redirect('/account-verified');
             return;
 
         }
@@ -47,9 +46,8 @@ const verifyAccountController = async (req: Request, res: Response) => {
         await user.save();
 
         // Respond with a success message
-        const response: IAPIResponse = { message: 'Account verified successfully', code: 200 };
-        res.status(response.code).json(response);
-        return;
+            res.status(200).redirect('/account-verified');
+            return;;
 
     }
 
