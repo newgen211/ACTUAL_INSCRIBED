@@ -57,7 +57,7 @@ export default function Sidebar({ userInfo }: SidebarProps) {
                     {/* Discover Feed Item */}
                     <ListItem disablePadding>
 
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/discover">
 
                             <ListItemIcon><Public /></ListItemIcon>
                             <ListItemText primary="Discover" />

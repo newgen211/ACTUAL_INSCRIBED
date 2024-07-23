@@ -1,9 +1,10 @@
 import Sidebar from '../components/Sidebar';
-import FollowingPage from '../components/FollowingPagecoComponent';
+import FollowingSidebar from '../components/FollowingPagecoComponent';
 import Rightbar from '../components/Rightbar';
-import { Alert, Box, Snackbar, Stack } from '@mui/material';
+import { Alert, Box, Snackbar, Stack,Grid } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import ForYouPage from '../components/ForYouComponents';
 
 export interface IUser {
     id: string;
@@ -63,9 +64,11 @@ export default function Followingpage() {
 
             <Stack direction='row' spacing={2} justifyContent='space-between'>
                 <Sidebar userInfo={userInfo} />
-                <FollowingPage />
+                <ForYouPage />
+          <FollowingSidebar />
+          
             </Stack>
-
+           
             {/* Display server response */}
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')}>
                 <Alert onClose={() => setError('')} severity="error" sx={{ width: '100%' }}>

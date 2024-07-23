@@ -49,7 +49,7 @@ const FollowingPage: React.FC = () => {
 
     fetchFollowing();
   }, [sessionToken, userId]);
-
+ 
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">

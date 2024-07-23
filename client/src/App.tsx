@@ -6,6 +6,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import Followingpage from './pages/FollowingPage';
+import Discover from './components/Discoverpage';
 
 
 // Main App component
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/forgot-password" element={<PublicRoute element={<ForgotPasswordPage />} />} />
         <Route path="/homepage" element={<ProtectedRoute element={<Homepage />} />} />
         <Route path="/following" element={<ProtectedRoute element={<Followingpage />} />} />
+        <Route path="/discover" element={<ProtectedRoute element={<Discover />} />} />
       </Routes>
 
     </BrowserRouter>
