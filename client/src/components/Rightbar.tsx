@@ -1,31 +1,24 @@
+import React from 'react';
 import { Box } from '@mui/material';
-import SearchBar from './Searchbar';
+import SearchBar from './Searchbar'; // Ensure this path is correct
 import UserCard from './UserCard';
-import { IUser } from '../pages/Homepage';
 
-interface RightbarProps {
-    userInfo: IUser | null;
-}
-
-export default function Rightbar({ userInfo }: RightbarProps) {
+export default function Rightbar() {
+    const userId = localStorage.getItem('userId');
 
     return (
-
-        <Box flex={2} p={2} borderLeft={1}
+        <Box
+            flex={2}
+            p={2}
+            borderLeft={1}
             sx={{
                 display: { xs: 'none', sm: 'block' }
             }}
         >
-
-            <Box position='fixed'>
-                
+            <Box position="fixed">
                 <SearchBar />
-                <UserCard userInfo={userInfo} />
-
+                {userId && <UserCard userId={userId} />}
             </Box>
-
         </Box>
-
     );
-
 }
